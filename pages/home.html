@@ -26,7 +26,7 @@
 				<div class="col-sm-6 col-md-6">
 					<ul class="nav nav-pills nav-stacked">
 					
-						<li><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Difficulty for next block. Ratio at which at the current hashing speed blocks will be mined with 4 minutes interval."><i class="fa fa-unlock-alt"></i> Difficulty: <span id="networkDifficulty"></span></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Difficulty for next block. Ratio at which at the current hashing speed blocks will be mined with 4 minutes interval."><i class="fa fa-unlock-alt"></i> Current Difficulty: <span id="networkDifficulty"></span></a></li>
 				
 						<li><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Average difficulty by last 30 blocks."><i class="fa fa-lock"></i> Average Difficulty: <span id="avgDifficulty"></span></a></li>
 					
@@ -167,7 +167,7 @@ currentPage = {
             updateText('networkHeight', lastStats.height.toString());
             updateText('networkTransactions', lastStats.tx_count.toString());
             updateText('networkHashrate', getReadableHashRateString(lastStats.difficulty / blockTargetInterval));
-            updateText('networkDifficulty', getReadableDifficultyString(lastStats.difficulty, 0).toString());
+            updateText('networkDifficulty', lastStats.difficulty);
 			$("time.timeago").timeago();
 			getPoolTransactions();
 			var currHeight = $('#blocks_rows').children().first().data('height');
@@ -451,7 +451,7 @@ $('#goto-height').keyup(function(e){
 		var avgDiff = Math.round(sum / Difficulties.length);
 		var avgHashRate = avgDiff / blockTargetInterval;
 		
-		updateText('avgDifficulty', getReadableDifficultyString(avgDiff, 0).toString());
+		updateText('avgDifficulty', avgDiff);
 		updateText('avgHashrate', getReadableHashRateString(avgDiff / blockTargetInterval));
         updateText('blockSolveTime', getReadableTime(lastStats.difficulty / avgHashRate));
 
